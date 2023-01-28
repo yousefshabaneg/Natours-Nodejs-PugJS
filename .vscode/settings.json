@@ -1,0 +1,13 @@
+{
+  "workbench.colorCustomizations": {
+    "[Community Material Theme Darker]": {
+      "statusBar.debuggingBackground": "#212121"
+    },
+    "[Community Material Theme]": {
+      "statusBar.debuggingBackground": "#263238"
+    },
+    "[Material Theme Palenight]": {
+      "statusBar.debuggingBackground": "#292D3E"
+    }
+  }
+}
