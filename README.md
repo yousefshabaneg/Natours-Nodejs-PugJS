@@ -4,4 +4,4 @@
 
 ---
 
-[Check Live Version](https://natours-yousefshabaneg.onrender.com/)
+[Check Live Version](http://bit.ly/3XO7pnO)
