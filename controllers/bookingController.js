@@ -6,6 +6,16 @@ const Booking = require('../models/bookingModel');
 const User = require('../models/userModel');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+createBookingCheckout = async session => {
+  const tour = session.client_reference_id;
+  const user = (await User.findOne({ email: session.customer_email })).id;
+  const price = session.line_items[0].price_data.unit_amount / 100;
+  console.log('Tour: ', tour);
+  console.log('User: ', user);
+  console.log('Price: ', price);
+  await Booking.create({ tour, user, price });
+};
+
 class BookingsController {
   static getCheckoutSession = catchAsync(async (req, res, next) => {
     //1) Get currently booked tour
@@ -53,7 +63,6 @@ class BookingsController {
   static webhookCheckout = (req, res, next) => {
     const signature = req.headers['stripe-signature'];
     let event;
-    console.log(req.body);
     try {
       event = stripe.webhooks.constructEvent(
         req.body,
@@ -65,16 +74,9 @@ class BookingsController {
     }
 
     if (event.type === 'checkout.session.completed') {
-      this._createBookingCheckout(event.data.object);
-      res.status(200).json({ received: true });
+      createBookingCheckout(event.data.object);
     }
-  };
-
-  static _createBookingCheckout = async session => {
-    const tour = session.client_reference_id;
-    const user = (await User.findOne({ email: session.customer_email })).id;
-    const price = session.line_items[0].price_data.unit_amount / 100;
-    await Booking.create({ tour, user, price });
+    res.status(200).json({ received: true });
   };
 
   static setTourUserId = (req, res, next) => {
