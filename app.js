@@ -64,7 +64,11 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 //Stripe need to read the body in a raw form, not in json
-app.post('/webhook-checkout', express.raw(), BookingController.webhookCheckout);
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  BookingController.webhookCheckout
+);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
