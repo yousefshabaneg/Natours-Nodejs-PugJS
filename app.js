@@ -14,6 +14,7 @@ const userRouter = require('./routes/userRoutes');
 const tourRouter = require('./routes/tourRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const BookingController = require('./controllers/bookingController');
 const viewRouter = require('./routes/viewRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -61,6 +62,9 @@ const limiter = rateLimit({
   message: 'Too many requests, please try again in an hour.'
 });
 app.use('/api', limiter);
+
+//Stripe need to read the body in a raw form, not in json
+app.post('/webhook-checkout', express.raw(), BookingController.webhookCheckout);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));

@@ -12,12 +12,7 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get(
-  '/',
-  BookingController.createBookingCheckout,
-  AuthMiddleware.isLoggedIn,
-  ViewsController.getOverview
-);
+router.get('/', AuthMiddleware.isLoggedIn, ViewsController.getOverview);
 router.get('/login', AuthMiddleware.isLoggedIn, ViewsController.getLoginForm);
 router.get('/tour/:slug', AuthMiddleware.isLoggedIn, ViewsController.getTour);
 router.get('/me', AuthMiddleware.protect, ViewsController.getAccount);
