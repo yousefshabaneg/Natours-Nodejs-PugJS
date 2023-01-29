@@ -3,7 +3,7 @@ const ViewsController = require('./../controllers/viewController');
 const BookingController = require('./../controllers/bookingController');
 const AuthMiddleware = require('../middleware/auth.middleware');
 
-// Allow map box security
+// Allow map box - stripe security
 router.use((req, res, next) => {
   res.setHeader(
     'Content-Security-Policy',
@@ -11,6 +11,8 @@ router.use((req, res, next) => {
   );
   next();
 });
+
+router.use(ViewsController.alerts);
 
 router.get('/', AuthMiddleware.isLoggedIn, ViewsController.getOverview);
 router.get('/login', AuthMiddleware.isLoggedIn, ViewsController.getLoginForm);
