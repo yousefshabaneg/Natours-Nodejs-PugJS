@@ -41,7 +41,7 @@ class ViewsController {
 
   static getMyTours = catchAsync(async (req, res, next) => {
     //1) Find All User Bookings
-    const bookings = await Booking.find({ user: req.user.id });
+    const bookings = await Booking.find({ user: req.user._id });
 
     if (!bookings) {
       return next(

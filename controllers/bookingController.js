@@ -8,7 +8,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const createBookingCheckout = async session => {
   const tour = session.client_reference_id;
-  const user = (await User.findOne({ email: session.customer_email })).id;
+  const user = (await User.findOne({ email: session.customer_email }))._id;
   const price = session.amount_total / 100;
   await Booking.create({ tour, user, price });
 };
@@ -28,7 +28,7 @@ class BookingsController {
       )}/my-tours?alert=booking`,
       cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
       customer_email: req.user.email,
-      client_reference_id: req.user.id,
+      client_reference_id: req.params.tourId,
       mode: 'payment',
       line_items: [
         {
