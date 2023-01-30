@@ -16,6 +16,11 @@ router.use(ViewsController.alerts);
 
 router.get('/', AuthMiddleware.isLoggedIn, ViewsController.getOverview);
 router.get('/login', AuthMiddleware.isLoggedIn, ViewsController.getLoginForm);
+router.get(
+  '/register',
+  AuthMiddleware.isLoggedIn,
+  ViewsController.getRegisterForm
+);
 router.get('/tour/:slug', AuthMiddleware.isLoggedIn, ViewsController.getTour);
 router.get('/me', AuthMiddleware.protect, ViewsController.getAccount);
 

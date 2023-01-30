@@ -60,6 +60,10 @@ class ViewsController {
     res.status(200).render('login', { title: 'Log into your account' });
   };
 
+  static getRegisterForm = (req, res, next) => {
+    res.status(200).render('register', { title: 'Create a new account' });
+  };
+
   static updateUserData = catchAsync(async (req, res, next) => {
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
