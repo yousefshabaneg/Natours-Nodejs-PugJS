@@ -75,7 +75,6 @@ If you wish to play around with the code base in your local environment, do the 
 - [Tours](#tours)
 - [Bookings](#bookings)
 - [Reviews](#reviews)
-- [Favorite Tours](#favorite-tours)
 - [Notice](#notice)
 
 ## Users
@@ -115,12 +114,6 @@ If you wish to play around with the code base in your local environment, do the 
 - Regular users can edit and delete their own reviews.
 - Regular users can not review thesame tour twice.
 - An admin can delete any review.
-
-## Favorite Tours
-
-- A regular user can add any of their booked tours to their list of favorite tours.
-- A regular user can remove a tour from their list of favorite tours.
-- A regular user can not add a tour to their list of favorite tours, when it is already a favorite.
 
 ## Notice
 
